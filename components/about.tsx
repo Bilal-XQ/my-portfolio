@@ -96,7 +96,7 @@ export default function About() {
                 className="border-blue-400 text-white hover:bg-blue-500/10 hover:shadow-glow transition-all duration-300 transform hover:scale-105 min-h-[50px] rounded-full"
                 asChild
               >
-                <a href="public/BILAL_EL_AZZAM.pdf" download>
+                <a href="BILAL_EL_AZZAM.pdf" download>
                   <FileDown className="mr-2 h-5 w-5" /> Download Resume
                 </a>
               </Button>
