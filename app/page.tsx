@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Header from "@/components/header"
+import EnhancedHeader from "@/components/enhanced-header"
 import About from "@/components/about"
 import Education from "@/components/education"
 import Projects from "@/components/projects"
@@ -23,7 +23,7 @@ export default function Home() {
       <CodingBackground />
       <div className="radial-gradient-overlay"></div>
       <NotificationBanner />
-      <Header />
+      <EnhancedHeader />
       <div className="container mx-auto px-4 py-8 relative z-10">
         <About />
         <div className="section-divider"></div>
