@@ -1,28 +1,75 @@
 # My Portfolio
 
-Welcome to my personal portfolio! This project showcases my skills, projects, and experience as a developer. It is built using modern web technologies and designed to provide a seamless user experience.
+A modern, responsive portfolio website showcasing my skills, projects, and experience as a full-stack developer.
 
-## 🚀 Features
+## ✨ Features
 
-- Responsive design for all devices.
-- Dynamic project showcase.
-- Downloadable resume.
-- Smooth scrolling and navigation.
-- Contact form for inquiries.
+- **Responsive Design** - Works perfectly on all devices
+- **Modern UI/UX** - Clean, professional design with smooth animations
+- **Interactive Sections** - About, Projects, Skills, Activities, and Contact
+- **Project Gallery** - Showcase of my development work with live demos
+- **Contact Form** - Get in touch directly through the website
+- **Resume Download** - Easy access to my CV
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: TypeScript, React, CSS
-- **Tools & Libraries**: Framer Motion, Radix UI
+- **Framework**: Next.js 14 with TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **UI Components**: Radix UI
+- **Icons**: Lucide React
+- **Deployment**: Vercel
 
-## 📂 Directory Structure
+## 📦 Installation
 
-my-portfolio/ ├── components/ # Reusable UI components ├── public/ # Static assets (e.g., images, resume) ├── app/ # Application entry point and configuration ├── styles/ # Global and component-specific styles ├── utils/ # Helper functions ├── package.json # Dependencies and scripts
+1. Clone the repository:
+```bash
+git clone https://github.com/Bilal-XQ/my-portfolio.git
+cd my-portfolio
+```
 
-🎯 Contact
-Feel free to reach out to me via:
+2. Install dependencies:
+```bash
+pnpm install
+# or
+npm install
+```
 
-Email: bilalelazzam.dev@gamil.com
-LinkedIn: www.linkedin.com/in/bilalelazzam
+3. Run the development server:
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-Thank you for visiting my portfolio! If you like this project, consider giving it a ⭐ on GitHub.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📁 Project Structure
+
+```
+my-portfolio/
+├── app/                 # Next.js app directory
+├── components/          # React components
+│   ├── ui/             # Reusable UI components
+│   ├── modern-*.tsx    # Page section components
+│   └── ...
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+├── public/             # Static assets
+└── styles/             # Global styles
+```
+
+## 🚀 Deployment
+
+This project is deployed on Vercel. To deploy your own copy:
+
+
+## 📧 Contact
+
+- **Email**: bilalelazzam.dev@gmail.com
+- **LinkedIn**: [linkedin.com/in/bilalelazzam](https://linkedin.com/in/bilalelazzam)
+- **GitHub**: [github.com/Bilal-XQ](https://github.com/Bilal-XQ)
+
+---
+
+⭐ If you like this project, please give it a star on GitHub!
