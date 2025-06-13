@@ -21,7 +21,7 @@ const activities: Activity[] = [
   {
     organization: "Cyber Atlas Club",
     role: "Active Member",
-    period: "2023 - Present",
+    period: "2024 - 2025",
     description: "Participating in cybersecurity initiatives, workshops, and competitions. Contributing to the development of security awareness programs and technical skill building within the academic community.",
     achievements: [
       "Participated in cybersecurity workshops and training sessions",
@@ -36,7 +36,7 @@ const activities: Activity[] = [
   {
     organization: "Robotics & AI Club",
     role: "Team Member",
-    period: "2022 - Present", 
+    period: "2024 - 2025", 
     description: "Engaged in robotics and AI projects focusing on programming, design, and implementation of automated systems. Participating in competitions and collaborative development of innovative robotic solutions.",
     achievements: [
       "Developed programming solutions for robotic systems",
