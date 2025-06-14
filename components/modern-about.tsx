@@ -1,23 +1,45 @@
 "use client"
 
 import { useInView } from "react-intersection-observer"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { FileDown, ChevronDown, Code, ArrowRight, Github, Linkedin, Mail } from "lucide-react"
-import { useState, useEffect } from "react"
+import { Eye, ChevronDown, Code, ArrowRight, Github, Linkedin, Mail, Download, ExternalLink } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
 
 const roles = ["Full-Stack Developer", "AI Explorer", "Cybersecurity Enthusiast", "Computer Science Student", "Graphic Designer"]
 
-export default function ModernAbout() {
-  const { ref, inView } = useInView({
+export default function ModernAbout() {  const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
   })
-
+  
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayText, setDisplayText] = useState("")
   const [isDeleting, setIsDeleting] = useState(false)
   const [typingSpeed, setTypingSpeed] = useState(150)
+  const [showCVOptions, setShowCVOptions] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Function to open CV in new tab
+  const openCV = (language: 'en' | 'fr') => {
+    const cvPath = language === 'en' ? '/BILAL_EL_AZZAM_CV_EN.pdf' : '/BILAL_EL_AZZAM_CV_FR.pdf'
+    window.open(cvPath, '_blank')
+    setShowCVOptions(false)
+  }
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowCVOptions(false)
+      }
+    }
+
+    if (showCVOptions) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showCVOptions])
 
   useEffect(() => {
     const currentRole = roles[roleIndex]
@@ -91,9 +113,7 @@ export default function ModernAbout() {
                   |
                 </motion.span>
               </h2>
-            </motion.div>
-
-            {/* Description */}
+            </motion.div>            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -102,26 +122,51 @@ export default function ModernAbout() {
             >
               Passionate about creating exceptional digital experiences through clean code, 
               innovative design, and cutting-edge technologies. Currently focused on React, 
-            , and modern web development practices.            </motion.p>
-
-            {/* Action Buttons */}
+              and modern web development practices.
+            </motion.p>            {/* Action Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 1.0 }}
-              className="flex flex-col sm:flex-row gap-4"
+              transition={{ duration: 0.6, delay: 1.0 }}              className="flex flex-col sm:flex-row gap-4"
             >
-              <Button
-                size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-                asChild
-              >
-                <a href="/BILAL_EL_AZZAM.pdf" download>
-                  <FileDown className="h-5 w-5 mr-2" />
-                  Download CV
+              <div className="relative" ref={dropdownRef}>
+                <Button
+                  size="lg"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+                  onClick={() => setShowCVOptions(!showCVOptions)}
+                >
+                  <ExternalLink className="h-5 w-5 mr-2" />
+                  Preview CV
                   <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-0.5" />
-                </a>
-              </Button>
+                </Button>                {/* CV Language Options Dropdown */}
+                <AnimatePresence>
+                  {showCVOptions && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full mt-2 left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden min-w-[160px]"
+                    >
+                      <button
+                        onClick={() => openCV('en')}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-left"
+                      >
+                        <span className="text-lg">🇺🇸</span>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">English</span>
+                      </button>
+                      <div className="border-t border-gray-100 dark:border-gray-700" />
+                      <button
+                        onClick={() => openCV('fr')}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors text-left"
+                      >
+                        <span className="text-lg">🇫🇷</span>
+                        <span className="font-medium text-gray-700 dark:text-gray-300">Français</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               
               <Button
                 size="lg"
@@ -202,8 +247,7 @@ export default function ModernAbout() {
           >
             <span className="text-sm text-gray-500 dark:text-gray-400">Scroll to explore</span>
             <ChevronDown className="h-6 w-6 text-gray-400" />
-          </motion.div>
-        </motion.div>
+          </motion.div>        </motion.div>
       </div>
     </section>
   )

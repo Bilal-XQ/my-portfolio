@@ -3,8 +3,7 @@ import ModernNavigation from "@/components/modern-navigation"
 import ModernAbout from "@/components/modern-about"
 import ModernProjectsEnhanced from "@/components/modern-projects-enhanced"
 import ModernSkills from "@/components/modern-skills"
-import ModernActivities from "@/components/modern-activities"
-import ComingSoonGallery from "@/components/coming-soon-gallery"
+
 import ModernContact from "@/components/modern-contact"
 import ScrollToTop from "@/components/scroll-to-top"
 import AnimatedHero from "@/components/animated-hero"
@@ -56,25 +55,18 @@ export default function Home() {
         <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
         
         <ModernSkills />
-        
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
-        
-        <ModernActivities />
-        
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
-        
-        <ComingSoonGallery />
-        
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
         
         <ModernContact />
-        
-        {/* Footer */}
+          {/* Footer */}
         <footer className="relative py-12 mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent mb-8" />            <p className="text-gray-600 dark:text-gray-400">
-              © 2025 Developed by Bilal EL AZZAM. Built with Next.js, TypeScript, and Tailwind CSS.
-            </p>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent mb-8" />
+            <div className="flex justify-center items-center">
+              <p className="text-gray-600 dark:text-gray-400 text-center">
+                © 2025 Developed by Bilal EL AZZAM. Built with Next.js, TypeScript, and Tailwind CSS.
+              </p>
+            </div>
           </div>
         </footer>
       </div>

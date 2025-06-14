@@ -1,0 +1,38 @@
+<!-- KhadmaAI Landing Page -->
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#0f172a"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="800" height="80" fill="#1e293b"/>
+  <text x="50" y="45" fill="#f1f5f9" font-family="Arial" font-size="24" font-weight="bold">KhadmaAI</text>
+  <text x="650" y="45" fill="#94a3b8" font-family="Arial" font-size="14">🤖 AI Services</text>
+  
+  <!-- Hero Section -->
+  <text x="50" y="140" fill="#f1f5f9" font-family="Arial" font-size="36" font-weight="bold">AI-Powered</text>
+  <text x="50" y="180" fill="#60a5fa" font-family="Arial" font-size="36" font-weight="bold">Service Platform</text>
+  <text x="50" y="220" fill="#94a3b8" font-family="Arial" font-size="16">Intelligent automation for modern businesses</text>
+  
+  <!-- Features -->
+  <rect x="450" y="120" width="300" height="280" fill="#1e293b" stroke="#334155"/>
+  
+  <!-- AI Features Cards -->
+  <rect x="470" y="140" width="260" height="60" fill="#3730a3" rx="8"/>
+  <text x="485" y="165" fill="#e0e7ff" font-family="Arial" font-size="14" font-weight="bold">🧠 Smart Recommendations</text>
+  <text x="485" y="185" fill="#c7d2fe" font-family="Arial" font-size="12">AI-driven service suggestions</text>
+  
+  <rect x="470" y="220" width="260" height="60" fill="#0d9488" rx="8"/>
+  <text x="485" y="245" fill="#ccfbf1" font-family="Arial" font-size="14" font-weight="bold">⚡ Automated Workflows</text>
+  <text x="485" y="265" fill="#99f6e4" font-family="Arial" font-size="12">Streamlined business processes</text>
+  
+  <rect x="470" y="300" width="260" height="60" fill="#dc2626" rx="8"/>
+  <text x="485" y="325" fill="#fecaca" font-family="Arial" font-size="14" font-weight="bold">📊 Real-time Analytics</text>
+  <text x="485" y="345" fill="#fca5a5" font-family="Arial" font-size="12">Performance insights</text>
+  
+  <!-- CTA Button -->
+  <rect x="50" y="260" width="150" height="50" fill="#2563eb" rx="25"/>
+  <text x="95" y="290" fill="white" font-family="Arial" font-size="16" font-weight="bold">Get Started</text>
+  
+  <!-- Bottom stats -->
+  <text x="50" y="380" fill="#64748b" font-family="Arial" font-size="12">ENSET Hackathon 2025 Winner</text>
+  <text x="50" y="400" fill="#64748b" font-family="Arial" font-size="12">Built with TypeScript, React, TensorFlow</text>
+</svg>

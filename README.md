@@ -6,8 +6,8 @@ A modern, responsive portfolio website showcasing my skills, projects, and exper
 
 - **Responsive Design** - Works perfectly on all devices
 - **Modern UI/UX** - Clean, professional design with smooth animations
-- **Interactive Sections** - About, Projects, Skills, Activities, and Contact
-- **Project Gallery** - Showcase of my development work with live demos
+- **Interactive Sections** - About, Projects, Skills, and Contact
+- **Project Showcase** - Showcase of my development work with live demos
 - **Contact Form** - Get in touch directly through the website
 - **Resume Download** - Easy access to my CV
 

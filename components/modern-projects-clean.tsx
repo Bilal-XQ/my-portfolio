@@ -7,6 +7,8 @@ import {
   ExternalLink, 
   ArrowUpRight, 
   Eye,
+  Users,
+  Zap,
   Star,
   Calendar,
   Code2
@@ -100,12 +102,14 @@ export default function ModernProjects() {
           animate={inView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
         >
-          {projects.map((project, index) => (            <motion.div
+          {projects.map((project, index) => (
+            <motion.div
               key={project.title}
               variants={itemVariants}
+              className={project.featured ? "lg:col-span-2" : ""}
             >
               <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                <div>                  <div className="relative overflow-hidden">
+                <div className={`${project.featured ? "md:flex" : ""}`}>                  <div className={`relative overflow-hidden ${project.featured ? "md:w-1/2" : ""}`}>
                     <div className="aspect-video relative">
                       <img
                         src={project.image}
@@ -117,7 +121,8 @@ export default function ModernProjects() {
                     
                     {/* Floating action buttons */}
                     <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                      {project.repoUrl && (                        <Button
+                      {project.repoUrl && (
+                        <Button
                           size="icon"
                           variant="secondary"
                           className="rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border border-white/20"
@@ -128,7 +133,8 @@ export default function ModernProjects() {
                           </a>
                         </Button>
                       )}
-                      {project.demoUrl && (                        <Button
+                      {project.demoUrl && (
+                        <Button
                           size="icon"
                           variant="secondary"
                           className="rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border border-white/20"
@@ -142,7 +148,7 @@ export default function ModernProjects() {
                     </div>
                   </div>
 
-                  <CardContent className="p-6 flex flex-col flex-grow">
+                  <CardContent className={`p-6 flex flex-col flex-grow ${project.featured ? "md:w-1/2" : ""}`}>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>

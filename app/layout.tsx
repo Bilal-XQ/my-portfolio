@@ -20,9 +20,11 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
-}>) {
-  return (
+}>) {  return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+      </head>
       <body className={inter.className}>
         <ResponsiveFixes />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>

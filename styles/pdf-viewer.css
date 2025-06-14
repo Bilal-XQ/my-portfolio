@@ -1,0 +1,38 @@
+/* PDF Viewer Optimizations */
+.pdf-viewer-container {
+  background: white;
+  overflow: hidden;
+}
+
+.pdf-viewer-container iframe {
+  border: none;
+  outline: none;
+  background: white;
+  object-fit: fill;
+}
+
+/* Ensure PDF takes full container space */
+.pdf-fullscreen iframe {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+/* Hide PDF.js toolbar for cleaner look */
+.pdf-viewer-container iframe::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pdf-viewer-container iframe::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.pdf-viewer-container iframe::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.pdf-viewer-container iframe::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
