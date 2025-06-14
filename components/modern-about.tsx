@@ -102,7 +102,7 @@ export default function ModernAbout() {
             >
               Passionate about creating exceptional digital experiences through clean code, 
               innovative design, and cutting-edge technologies. Currently focused on React, 
-            , and modern web development practices.            </motion.p>
+              and modern web development practices.            </motion.p>
 
             {/* Action Buttons */}
             <motion.div
