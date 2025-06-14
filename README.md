@@ -58,10 +58,6 @@ my-portfolio/
 └── styles/             # Global styles
 ```
 
-## 🚀 Deployment
-
-This project is deployed on Vercel. To deploy your own copy:
-
 
 ## 📧 Contact
 
