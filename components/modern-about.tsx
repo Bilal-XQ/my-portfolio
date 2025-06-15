@@ -119,9 +119,7 @@ export default function ModernAbout() {  const { ref, inView } = useInView({
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl"
-            >              Passionate about creating exceptional digital experiences through clean code, 
-              innovative design, and cutting-edge technologies. Currently focused on React, 
-              and modern web development practices.
+            >              I enjoy turning ideas into functional, user-friendly websites through thoughtful design and well-structured code. Always learning and improving, I'm currently open to internship opportunities to further develop my skills and contribute to real-world projects.
             </motion.p>
 
             {/* Action Buttons */}
