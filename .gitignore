@@ -25,3 +25,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# github
+# Ignore all files in the .github directory 
+.github/*
+# except for the workflows directory            
+!.github/workflows/
