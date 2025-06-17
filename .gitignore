@@ -31,3 +31,6 @@ next-env.d.ts
 .github
 # except for the workflows directory            
 !.github/workflows/
+
+# Idea
+.idea
