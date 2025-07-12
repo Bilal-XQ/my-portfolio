@@ -1,12 +1,9 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LightboxProvider } from "@/components/lightbox"
 import ResponsiveFixes from "@/components/responsive-fixes"
-
-const inter = Inter({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
   title: "Portfolio | Full-Stack Developer",
@@ -25,7 +22,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
-      <body className={inter.className}>
+      <body className="font-sans">
         <ResponsiveFixes />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <LightboxProvider>{children}</LightboxProvider>
