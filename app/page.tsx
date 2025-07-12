@@ -3,6 +3,7 @@ import ModernNavigation from "@/components/modern-navigation"
 import ModernAbout from "@/components/modern-about"
 import ModernProjectsEnhanced from "@/components/modern-projects-enhanced"
 import ModernSkills from "@/components/modern-skills"
+import ServicesSection from "@/components/services-section"
 import ModernContact from "@/components/modern-contact"
 import ScrollToTop from "@/components/scroll-to-top"
 import AnimatedHero from "@/components/animated-hero"
@@ -66,6 +67,10 @@ export default function Home() {
         <div className="h-px bg-gradient-to-r from-transparent via-blue-primary/30 to-transparent my-20" />
         
         <ModernSkills />
+        
+        <div className="h-px bg-gradient-to-r from-transparent via-blue-primary/30 to-transparent my-20" />
+        
+        <ServicesSection />
         
         <div className="h-px bg-gradient-to-r from-transparent via-blue-primary/30 to-transparent my-20" />
         
