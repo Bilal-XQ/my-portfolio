@@ -3,10 +3,10 @@ import ModernNavigation from "@/components/modern-navigation"
 import ModernAbout from "@/components/modern-about"
 import ModernProjectsEnhanced from "@/components/modern-projects-enhanced"
 import ModernSkills from "@/components/modern-skills"
-
 import ModernContact from "@/components/modern-contact"
 import ScrollToTop from "@/components/scroll-to-top"
 import AnimatedHero from "@/components/animated-hero"
+import ParticleSystem from "@/components/ui/particle-system"
 
 export const metadata: Metadata = {
   title: "Portfolio | Full-Stack Developer",
@@ -32,8 +32,18 @@ export default function Home() {
       {/* Premium black background with gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-black-primary via-black-secondary to-black-tertiary" />
       
+      {/* Interactive Particle System Background */}
+      <div className="fixed inset-0 z-0 opacity-30">
+        <ParticleSystem 
+          particleCount={60}
+          containerWidth={typeof window !== 'undefined' ? window.innerWidth : 1920}
+          containerHeight={typeof window !== 'undefined' ? window.innerHeight : 1080}
+          className="w-full h-full"
+        />
+      </div>
+      
       {/* Subtle animated gradient mesh */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-primary/10 to-blue-secondary/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-blue-secondary/10 to-blue-primary/10 rounded-full blur-3xl animate-pulse animation-delay-2000" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-blue-primary/5 to-blue-secondary/5 rounded-full blur-3xl animate-pulse animation-delay-4000" />
