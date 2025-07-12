@@ -26,16 +26,21 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#264d76", // Base dark blue color
-          foreground: "#0a1929", // Darker shade for backgrounds
+          DEFAULT: "#1A4B7F", // Deep Blue
+          foreground: "#FFFFFF", // White
         },
-        "deep-blue": "#1b2a41", // New deep blue base color
-        "deep-blue-darker": "#0f1a2a", // Darker shade for gradients
-        "deep-blue-lighter": "#2a3f5f", // Lighter shade for accents
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#2B6BA5", // Medium Blue
+          foreground: "#FFFFFF", // White
         },
+        // Premium black theme colors
+        "black-primary": "#000000", // Pure black
+        "black-secondary": "#0a0a0a", // Slightly lighter black
+        "black-tertiary": "#1a1a1a", // Dark gray
+        "blue-primary": "#1A4B7F", // Deep Blue
+        "blue-secondary": "#2B6BA5", // Medium Blue
+        "text-primary": "#FFFFFF", // White
+        "text-secondary": "#D3D3D3", // Light Gray
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
