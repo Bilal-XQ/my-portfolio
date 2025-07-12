@@ -216,9 +216,10 @@ export default function ModernProjectsEnhanced() {
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,120,120,0.3),rgba(255,255,255,0))]" />
+      {/* Enhanced Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-primary/10 via-transparent to-blue-secondary/10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(26,75,127,0.15),transparent_50%)]" />
       </div>
       
       <div className="max-w-7xl mx-auto relative">
@@ -229,13 +230,20 @@ export default function ModernProjectsEnhanced() {
           className="text-center mb-16"
         >
           <motion.h2 
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
-            animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-primary via-blue-secondary to-text-primary bg-clip-text text-transparent"
+            animate={{ 
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] 
+            }}
+            transition={{ 
+              duration: 8, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            style={{ backgroundSize: "200% 100%" }}
           >
             My Projects
           </motion.h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
             A collection of projects showcasing technical expertise, creative problem-solving, and passion for innovation
           </p>
         </motion.div>
@@ -246,176 +254,188 @@ export default function ModernProjectsEnhanced() {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-        >          {projects.map((project, index) => (            <motion.div 
-              key={project.title} 
+        >
+          {projects.map((project, index) => (
+            <motion.div 
+              key={project.title}
               variants={itemVariants}
+              className="group relative"
               onMouseEnter={() => setHoveredProject(project.title)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              <Card className="project-card group h-full overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm">
-                <div className="relative overflow-hidden">
-                  <div className="aspect-video relative">                    <motion.img
-                      key={getDisplayImage(project)}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
+              {/* 3D Card Container */}
+              <div className="relative perspective-1000">
+                <motion.div 
+                  className="relative bg-black-tertiary/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-blue-primary/20 shadow-2xl transform-style-3d"
+                  whileHover={{ 
+                    rotateX: 5, 
+                    rotateY: 5, 
+                    scale: 1.02,
+                    boxShadow: "0 25px 50px -12px rgba(26, 75, 127, 0.25)"
+                  }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: "easeOut" 
+                  }}
+                >
+                  {/* Enhanced Image Container */}
+                  <div className="relative aspect-video overflow-hidden">
+                    <motion.img
                       src={getDisplayImage(project)}
                       alt={project.title}
-                      className="project-image w-full h-full object-cover transition-all duration-700 hover:brightness-110"
-                      loading="eager"
+                      className="w-full h-full object-cover transition-all duration-700"
+                      whileHover={{ scale: 1.1 }}
                       onError={(e) => {
-                        // Fallback to placeholder
-                        e.currentTarget.src = "/placeholder.svg?height=400&width=600&text=" + encodeURIComponent(project.title)
+                        console.error('Image failed to load:', project.title)
+                        e.currentTarget.src = `/placeholder.svg?height=300&width=500&text=${encodeURIComponent(project.title)}`
                       }}
-                    />{/* Hover overlay with gallery indicator */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileHover={{ scale: 1.1 }}
-                        className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full p-3 flex items-center gap-2 text-sm font-medium shadow-lg"
-                      >
-                        <Eye className="h-4 w-4" />
-                        <span>
-                          {project.images && project.images.length > 1 
-                            ? `View Gallery (${project.images.length})` 
-                            : 'View Image'
-                          }
-                        </span>
-                      </motion.div>
-                    </div>
-                    
-                    {/* Click target overlay for reliable clicking */}
-                    <div 
-                      className="absolute inset-0 cursor-pointer z-10 hover:bg-black/5 transition-colors"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        
-                        // Debug logging
-                        console.log('Gallery click triggered for:', project.title)
-                        
-                        try {
-                          const imagesToShow = project.images && project.images.length > 0 
-                            ? project.images 
-                            : [project.image]
-                          
-                          if (!imagesToShow || imagesToShow.every(img => !img)) {
-                            console.warn('No valid images found for project:', project.title)
-                            return
-                          }
-                          
-                          const currentIndex = project.images && project.images.length > 1 
-                            ? (slideIndexes[project.title] || 0)
-                            : 0
-                          
-                          openGallery({ ...project, images: imagesToShow }, currentIndex)
-                        } catch (error) {
-                          console.error('Error opening gallery:', error)
-                        }
-                      }}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`View ${project.images && project.images.length > 1 ? 'gallery' : 'image'} for ${project.title}`}
                     />
                     
-                    {/* Image counter for multiple images */}
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black-primary/80 via-transparent to-transparent opacity-60" />
+                    
+                    {/* Gallery Button with Enhanced Styling */}
                     {project.images && project.images.length > 1 && (
-                      <div className="absolute top-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm">
-                        {(slideIndexes[project.title] || 0) + 1}/{project.images.length}
+                      <motion.div
+                        className="absolute top-4 right-4"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            openGallery(project, slideIndexes[project.title] || 0)
+                          }}
+                          className="bg-black-primary/80 backdrop-blur-sm text-text-primary px-3 py-2 rounded-lg text-sm font-medium hover:bg-blue-primary/80 transition-all duration-300 flex items-center gap-2 border border-blue-primary/30"
+                        >
+                          <Eye className="w-4 h-4" />
+                          View Gallery ({project.images.length})
+                        </button>
+                      </motion.div>
+                    )}
+                    
+                    {/* Image Counter */}
+                    {project.images && project.images.length > 1 && (
+                      <div className="absolute bottom-4 left-4 bg-black-primary/80 backdrop-blur-sm text-text-primary px-3 py-1 rounded-full text-sm border border-blue-primary/30">
+                        {((slideIndexes[project.title] || 0) + 1)}/{project.images.length}
                       </div>
                     )}
                   </div>
-                </div>
 
-                <CardContent className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 flex-grow">
-                    {project.description}
-                  </p>
+                  {/* Enhanced Content */}
+                  <div className="p-6 relative">
+                    <motion.h3 
+                      className="text-2xl font-bold text-text-primary mb-3 group-hover:text-blue-primary transition-colors duration-300"
+                      layoutId={`title-${project.title}`}
+                    >
+                      {project.title}
+                    </motion.h3>
+                    
+                    <motion.p 
+                      className="text-text-secondary mb-4 line-clamp-3 leading-relaxed"
+                      layoutId={`description-${project.title}`}
+                    >
+                      {project.description}
+                    </motion.p>
 
-                  {/* Tech Stack */}
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-1.5">
+                    {/* Enhanced Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-6">
                       {project.techStack.slice(0, 4).map((tech, techIndex) => (
                         <motion.div
                           key={tech}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: techIndex * 0.05 }}                          className="flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs font-medium"
+                          className="flex items-center gap-2 bg-blue-primary/20 backdrop-blur-sm text-text-primary px-3 py-1 rounded-full text-sm font-medium border border-blue-primary/30"
+                          whileHover={{ 
+                            scale: 1.05, 
+                            backgroundColor: "rgba(26, 75, 127, 0.4)" 
+                          }}
+                          transition={{ duration: 0.2 }}
                         >
-                          <span className="flex items-center">{techIcons[tech] || '🔧'}</span>
+                          {techIcons[tech] || <span className="w-4 h-4">⚡</span>}
                           <span>{tech}</span>
                         </motion.div>
                       ))}
                       {project.techStack.length > 4 && (
-                        <div className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs font-medium text-gray-500">
+                        <div className="flex items-center justify-center bg-blue-secondary/20 backdrop-blur-sm text-text-secondary px-3 py-1 rounded-full text-sm border border-blue-secondary/30">
                           +{project.techStack.length - 4} more
                         </div>
                       )}
                     </div>
-                  </div>                  {/* Action Buttons */}
-                  <div className="flex gap-2 mt-auto">
-                    {project.repoUrl && (                      <Button size="sm" variant="outline" className="flex-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group/btn" asChild>
-                        <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                          <span className="flex items-center">
-                            <Github className="h-4 w-4 mr-2" />
-                            Code
-                            <ArrowUpRight className="h-3 w-3 ml-1 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                          </span>
-                        </a>
-                      </Button>
-                    )}
-                    {project.demoUrl && (                      <Button size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700 transition-colors group/btn" asChild>
-                        <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                          <span className="flex items-center">
-                            <Eye className="h-4 w-4 mr-2" />
-                            Demo
-                            <ArrowUpRight className="h-3 w-3 ml-1 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                          </span>
-                        </a>
-                      </Button>
-                    )}
+
+                    {/* Enhanced Action Buttons */}
+                    <div className="flex gap-4">
+                      {project.repoUrl && (
+                        <motion.a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 bg-gradient-to-r from-blue-primary to-blue-secondary hover:from-blue-primary/90 hover:to-blue-secondary/90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Github className="w-4 h-4" />
+                          Code
+                          <ArrowUpRight className="w-4 h-4" />
+                        </motion.a>
+                      )}
+                      {project.demoUrl && (
+                        <motion.a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 bg-black-secondary hover:bg-black-primary text-text-primary px-4 py-2 rounded-lg font-medium transition-all duration-300 border border-blue-primary/30 hover:border-blue-primary/50"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Demo
+                          <ArrowUpRight className="w-4 h-4" />
+                        </motion.a>
+                      )}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+
+                  {/* Hover Glow Effect */}
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-primary/20 to-blue-secondary/20 blur-xl" />
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* View All Projects Button */}
+        {/* Enhanced CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-16"        >
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 group"
-            asChild
+          className="text-center mt-16"
+        >
+          <motion.a
+            href="https://github.com/Bilal-XQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-primary to-blue-secondary hover:from-blue-primary/90 hover:to-blue-secondary/90 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 shadow-2xl hover:shadow-blue-primary/25"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <a href="https://github.com/Bilal-XQ" target="_blank" rel="noopener noreferrer" className="flex items-center">
-              <span className="flex items-center">
-                <Github className="h-5 w-5 mr-2" />
-                View All Projects on GitHub
-                <ArrowUpRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-            </a>
-          </Button></motion.div>
+            <Github className="w-6 h-6" />
+            View All Projects on GitHub
+            <ArrowUpRight className="w-6 h-6" />
+          </motion.a>
+        </motion.div>
       </div>
-      
-      {/* Image Gallery Modal */}
+
+      {/* Enhanced Image Gallery */}
       <ImageGallery
-        images={galleryState.images}
         isOpen={galleryState.isOpen}
+        images={galleryState.images}
         currentIndex={galleryState.currentIndex}
         onClose={closeGallery}
         onPrevious={goToPrevious}
         onNext={goToNext}
-        onSetIndex={setGalleryIndex}
+        onIndexChange={setGalleryIndex}
+        title={galleryState.projectTitle}
       />
     </section>
   )
