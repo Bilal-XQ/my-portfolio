@@ -28,43 +28,56 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 relative">
-      {/* Enhanced background with modern gradient */}
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/20 via-purple-50/10 to-transparent dark:from-blue-900/10 dark:via-purple-900/5 dark:to-transparent" />
+    <main className="min-h-screen professional-bg relative overflow-hidden">
+      {/* Professional gradient overlay */}
+      <div className="fixed inset-0 bg-gradient-to-br from-black/20 via-transparent to-purple-900/10 pointer-events-none" />
       
-      {/* Animated background elements */}
+      {/* Subtle animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000" />
-        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-600/5 to-purple-600/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-purple-600/5 to-blue-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/3 to-purple-600/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
       </div>
 
       <ModernNavigation />
       
-      <div className="relative z-10">        {/* Hero Section with Animated Background */}
-        <section id="about" className="min-h-screen flex items-center justify-center relative px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-transition">
+        {/* Hero Section with Professional Background */}
+        <section id="about" className="min-h-screen flex items-center justify-center relative px-4 sm:px-6 lg:px-8 section-primary">
           <AnimatedHero />
           <ModernAbout />
         </section>
 
-        {/* Modern Section Dividers */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
+        {/* Elegant Section Divider */}
+        <div className="elegant-divider my-20" />
         
-        <ModernProjectsEnhanced />
+        {/* Projects Section */}
+        <section id="projects" className="section-secondary py-20">
+          <ModernProjectsEnhanced />
+        </section>
         
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
+        {/* Elegant Section Divider */}
+        <div className="elegant-divider my-20" />
         
-        <ModernSkills />
-          <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent my-20" />
+        {/* Skills Section */}
+        <section id="skills" className="section-accent py-20">
+          <ModernSkills />
+        </section>
         
-        <ModernContact />
-          {/* Footer */}
-        <footer className="relative py-12 mt-20">
+        {/* Elegant Section Divider */}
+        <div className="elegant-divider my-20" />
+        
+        {/* Contact Section */}
+        <section id="contact" className="section-primary py-20">
+          <ModernContact />
+        </section>
+        {/* Professional Footer */}
+        <footer className="relative py-12 mt-20 section-primary">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent mb-8" />
+            <div className="elegant-divider mb-8" />
             <div className="flex justify-center items-center">
-              <p className="text-gray-600 dark:text-gray-400 text-center">
-                © 2025 Developed by Bilal EL AZZAM. Built with Next.js, TypeScript, and Tailwind CSS.
+              <p className="text-gray-400 text-center text-sm">
+                © 2025 Developed by <span className="text-blue-400 font-medium">Bilal EL AZZAM</span>. Built with Next.js, TypeScript, and Tailwind CSS.
               </p>
             </div>
           </div>

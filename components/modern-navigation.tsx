@@ -4,12 +4,13 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import type { MouseEvent } from "react"
 
 const navItems = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Contact", href: "#contact" }
+  { name: "About", href: "#about", label: "About" },
+  { name: "Work", href: "#projects", label: "Work" },
+  { name: "Skills", href: "#skills", label: "Skills" },
+  { name: "Contact", href: "#contact", label: "Contact" }
 ]
 
 export default function ModernNavigation() {
@@ -157,78 +158,96 @@ export default function ModernNavigation() {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-500",
-        scrolled 
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg border-b border-gray-200/20" 
-          : "bg-transparent"
-      )}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="font-bold text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent cursor-pointer"
-            onClick={() => scrollToSection("#about")}
-          >
-            Portfolio
-          </motion.div>          {/* Desktop Navigation */}          <div className="hidden md:flex space-x-1">
-            {navItems.map((item) => (
+      {/* Floating Navbar Container */}
+      <motion.div
+        className={cn(
+          "relative px-6 py-4 mx-4 rounded-2xl transition-all duration-700 ease-out",
+          "bg-black/10 backdrop-blur-2xl border border-white/10",
+          "shadow-2xl shadow-black/20",
+          scrolled 
+            ? "bg-black/20 border-white/20 shadow-black/40" 
+            : "bg-black/5 border-white/5"
+        )}
+        style={{
+          boxShadow: scrolled 
+            ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1)' 
+            : '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+        }}
+      >
+        <div className="flex items-center justify-center">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-2">
+            {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
                 whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                onClick={(e) => {
+                whileTap={{ y: 0, scale: 0.95 }}
+                onClick={(e: MouseEvent) => {
                   e.preventDefault()
                   e.stopPropagation()
-                  console.log(`🖱️ Clicking navigation item: ${item.name} -> ${item.href}`)
                   scrollToSection(item.href)
                 }}
                 className={cn(
-                  "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-500 ease-out",
+                  "relative px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-500 group",
                   activeSection === item.href.slice(1)
-                    ? "text-blue-600 dark:text-blue-400 font-semibold transform scale-105"
-                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:scale-105"
+                    ? "text-white font-semibold"
+                    : "text-gray-300 hover:text-white"
                 )}
               >
-                {item.name}{activeSection === item.href.slice(1) && (
+                <span className="relative z-10">{item.label}</span>
+                
+                {/* Active Background */}
+                {activeSection === item.href.slice(1) && (
                   <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-gradient-to-r from-blue-50 via-blue-50/80 to-blue-50 dark:from-blue-900/30 dark:via-blue-900/20 dark:to-blue-900/30 rounded-lg border border-blue-200/50 dark:border-blue-700/50 shadow-sm"
-                    style={{ zIndex: -1 }}
+                    layoutId="navPill"
+                    className="absolute inset-0 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20"
                     transition={{ 
                       type: "spring", 
                       bounce: 0.15, 
-                      duration: 0.8,
-                      ease: [0.4, 0, 0.2, 1]
+                      duration: 0.6 
                     }}
                   />
                 )}
+                
+                {/* Hover Background */}
+                <motion.div
+                  className="absolute inset-0 bg-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                
+                {/* Subtle underline indicator for active */}
                 {activeSection === item.href.slice(1) && (
                   <motion.div
-                    layoutId="activeUnderline"
-                    className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full shadow-sm"
+                    layoutId="underline"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full"
                     transition={{ 
                       type: "spring", 
                       bounce: 0.2, 
-                      duration: 0.8,
-                      ease: [0.4, 0, 0.2, 1]
+                      duration: 0.6 
                     }}
                   />
                 )}
+                
+                {/* Magnetic Effect */}
+                <motion.div
+                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.08), transparent 70%)'
+                  }}
+                />
               </motion.button>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <motion.button
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="md:hidden p-2.5 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20"
             aria-label="Toggle menu"
           >
             <AnimatePresence mode="wait">
@@ -240,7 +259,7 @@ export default function ModernNavigation() {
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5 text-white" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -250,46 +269,65 @@ export default function ModernNavigation() {
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5 text-white" />
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200/20"
-          >            <div className="px-4 py-4 space-y-2">
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    console.log(`📱 Clicking mobile navigation item: ${item.name} -> ${item.href}`)
-                    scrollToSection(item.href)
-                  }}
-                  className={cn(
-                    "block w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-out relative transform",
-                    activeSection === item.href.slice(1)
-                      ? "bg-gradient-to-r from-blue-50 to-blue-100/50 dark:from-blue-900/30 dark:to-blue-900/20 text-blue-600 dark:text-blue-400 font-semibold border-l-4 border-blue-600 dark:border-blue-400 scale-105 shadow-sm"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:scale-105 hover:translate-x-1"
-                  )}
-                >
-                  {item.name}
-                </motion.button>
-              ))}
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 mx-4"
+          >
+            <div className="bg-black/20 backdrop-blur-2xl border border-white/20 rounded-2xl p-4 shadow-2xl shadow-black/40">
+              <div className="space-y-2">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.3 }}
+                    onClick={(e: MouseEvent) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      scrollToSection(item.href)
+                    }}
+                    className={cn(
+                      "group relative w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300",
+                      activeSection === item.href.slice(1)
+                        ? "text-white font-semibold bg-white/10 backdrop-blur-xl border border-white/20"
+                        : "text-gray-300 hover:text-white hover:bg-white/5"
+                    )}
+                  >
+                    <span className="relative z-10">{item.label}</span>
+                    
+                    {/* Active indicator */}
+                    {activeSection === item.href.slice(1) && (
+                      <motion.div
+                        layoutId="mobileActiveIndicator"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    
+                    {/* Hover gradient */}
+                    <motion.div
+                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{
+                        background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.08))'
+                      }}
+                    />
+                  </motion.button>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
