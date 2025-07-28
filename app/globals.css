@@ -870,3 +870,31 @@
 .skill-item * {
   will-change: transform, opacity;
 }
+
+/* 3D Scene Styles */
+.laptop-screen {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Ensure 3D canvas renders properly */
+canvas {
+  outline: none;
+  touch-action: none;
+}
+
+/* 3D loading animations */
+@keyframes float3d {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.float-3d {
+  animation: float3d 6s ease-in-out infinite;
+}
+
+/* WebGL performance optimizations */
+.webgl-canvas {
+  will-change: transform;
+  transform: translateZ(0);
+}

@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils"
 import type { MouseEvent } from "react"
 
 const navItems = [
-  { name: "About", href: "#about", label: "About" },
-  { name: "Work", href: "#projects", label: "Work" },
-  { name: "Skills", href: "#skills", label: "Skills" },
-  { name: "Contact", href: "#contact", label: "Contact" }
+  { name: "About", href: "#about", label: "About", icon: "👋" },
+  { name: "Work", href: "#projects", label: "Work", icon: "💼" },
+  { name: "Skills", href: "#skills", label: "Skills", icon: "⚡" },
+  { name: "Contact", href: "#contact", label: "Contact", icon: "📧" }
 ]
 
 export default function ModernNavigation() {
@@ -166,26 +166,29 @@ export default function ModernNavigation() {
       {/* Floating Navbar Container */}
       <motion.div
         className={cn(
-          "relative px-6 py-4 mx-4 rounded-2xl transition-all duration-700 ease-out",
-          "bg-black/10 backdrop-blur-2xl border border-white/10",
-          "shadow-2xl shadow-black/20",
+          "relative px-8 py-5 mx-4 rounded-3xl transition-all duration-700 ease-out",
+          "bg-gradient-to-r from-black/20 via-gray-900/30 to-black/20 backdrop-blur-3xl border border-white/20",
+          "shadow-2xl shadow-black/50",
           scrolled 
-            ? "bg-black/20 border-white/20 shadow-black/40" 
-            : "bg-black/5 border-white/5"
+            ? "bg-gradient-to-r from-black/40 via-gray-900/50 to-black/40 border-white/30 shadow-black/60" 
+            : "bg-gradient-to-r from-black/15 via-gray-900/25 to-black/15 border-white/15"
         )}
         style={{
           boxShadow: scrolled 
-            ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1)' 
-            : '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+            ? '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15)' 
+            : '0 25px 50px -12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
         }}
       >
-        <div className="flex items-center justify-center">
+        {/* Background glow effect */}
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 pointer-events-none" />
+        
+        <div className="relative flex items-center justify-center">
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
-                whileHover={{ y: -2 }}
+                whileHover={{ y: -2, scale: 1.05 }}
                 whileTap={{ y: 0, scale: 0.95 }}
                 onClick={(e: MouseEvent) => {
                   e.preventDefault()
@@ -193,11 +196,29 @@ export default function ModernNavigation() {
                   scrollToSection(item.href)
                 }}
                 className={cn(
-                  "relative px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-500 group",
+                  "relative px-6 py-3 text-sm font-medium rounded-2xl transition-all duration-500 group flex items-center gap-2",
                   activeSection === item.href.slice(1)
-                    ? "text-white font-semibold"
-                    : "text-gray-300 hover:text-white"
+                    ? "text-white font-semibold bg-gradient-to-r from-blue-600/30 to-purple-600/30 shadow-lg shadow-blue-500/25"
+                    : "text-gray-300 hover:text-white hover:bg-white/10"
                 )}
+              >
+                <span className="text-xs opacity-80">{item.icon}</span>
+                <span>{item.label}</span>
+                
+                {/* Active indicator */}
+                {activeSection === item.href.slice(1) && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl border border-blue-400/30"
+                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                  />
+                )}
+                
+                {/* Hover glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-300" />
+              </motion.button>
+            ))}
+          </div>
               >
                 <span className="relative z-10">{item.label}</span>
                 

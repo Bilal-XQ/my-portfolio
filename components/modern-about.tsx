@@ -5,6 +5,19 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Eye, ChevronDown, Code, ArrowRight, Github, Linkedin, Mail, Download, ExternalLink } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
+import dynamic from "next/dynamic"
+
+// Dynamically import the 3D component for client-side rendering
+const Laptop3DScene = dynamic(() => import("@/components/3d/Laptop3DScene"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+        <Code className="h-16 w-16 text-white" />
+      </div>
+    </div>
+  )
+})
 
 const roles = ["Full-Stack Developer", "AI Explorer", "Cybersecurity Enthusiast", "Computer Science Student", "Graphic Designer"]
 
@@ -157,7 +170,7 @@ export default function ModernAbout() {  const { ref, inView } = useInView({
                       <div className="border-t border-gray-100 dark:border-gray-700" />
                       <button
                         onClick={() => openCV('fr')}
-                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors text-left"
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-left"
                       >
                         <span className="text-lg">🇫🇷</span>
                         <span className="font-medium text-gray-700 dark:text-gray-300">Français</span>
@@ -212,19 +225,11 @@ export default function ModernAbout() {  const { ref, inView } = useInView({
             </motion.div>
           </motion.div>
 
-          {/* Animated Hero Space - Content will be overlaid */}
+          {/* 3D Laptop Hero Space */}
           <div className="relative h-96 lg:h-full min-h-[500px] flex items-center justify-center">
-            {/* Placeholder for animated hero component */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="text-center"
-              >                <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl mb-6">
-                  <Code className="h-16 w-16 text-white" />
-                </div>
-              </motion.div>
+            {/* Dynamic import for client-side rendering */}
+            <div className="w-full h-full">
+              <Laptop3DScene inView={inView} className="w-full h-full" />
             </div>
           </div>
         </div>
