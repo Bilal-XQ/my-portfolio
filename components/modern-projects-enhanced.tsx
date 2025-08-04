@@ -229,7 +229,7 @@ export default function ModernProjectsEnhanced() {
           className="text-center mb-16"
         >
           <motion.h2 
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent"
             animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           >

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import ModernNavigationImproved from "@/components/modern-navigation-improved"
+import ProfessionalNavbar from "@/components/professional-navbar"
 import ModernAbout from "@/components/modern-about"
 import ModernProjectsEnhanced from "@/components/modern-projects-enhanced"
 import ModernSkills from "@/components/modern-skills"
@@ -26,13 +26,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen professional-bg relative overflow-hidden">
+    <main className="min-h-screen professional-bg relative">
       {/* Professional gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-black/20 via-transparent to-purple-900/10 pointer-events-none" />
       
-
-
-      <ModernNavigationImproved />
+      <ProfessionalNavbar />
       
       <div className="relative z-10 page-transition">
         {/* Hero Section with Professional Background */}
@@ -63,6 +61,7 @@ export default function Home() {
         <section id="contact" className="section-primary py-20">
           <ModernContact />
         </section>
+        
         {/* Professional Footer */}
         <footer className="relative py-12 mt-20 section-primary">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -31,12 +31,12 @@ function LaptopModel(props: Laptop3DProps) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation-x={-0.425} position={[0, -0.04, 0.41]}>
+      <group {...{"rotation-x": -0.425}} position={[0, -0.04, 0.41]}>
         <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh material={materials.aluminium} geometry={(nodes as any)['Cube008'].geometry} />
           <mesh material={materials['matte.001']} geometry={(nodes as any)['Cube008_1'].geometry} />
           <mesh geometry={(nodes as any)['Cube008_2'].geometry}>
-            <Html className="content" rotation-x={-Math.PI / 2} position={[0, 0.05, -0.09]} transform occlude>
+            <Html className="content" {...{"rotation-x": -Math.PI / 2}} position={[0, 0.05, -0.09]} transform occlude>
               <div className="wrapper" onPointerDown={(e) => e.stopPropagation()}>
                 <div className="w-80 h-52 bg-gray-900 rounded-lg border border-gray-700 overflow-hidden relative">
                   <div className="h-8 bg-gray-800 border-b border-gray-700 flex items-center px-3 gap-2">
@@ -46,7 +46,7 @@ function LaptopModel(props: Laptop3DProps) {
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                     </div>
                     <div className="flex-1 flex items-center text-xs text-gray-300">
-                      <span className="ml-2">portfolio.tsx - Bilal's Workspace</span>
+                      <span className="ml-2">portfolio.tsx - Bilal&apos;s Workspace</span>
                     </div>
                     <div className="text-xs text-gray-400">VS Code</div>
                   </div>
@@ -67,11 +67,11 @@ function LaptopModel(props: Laptop3DProps) {
                     
                     <div className="flex-1 bg-gray-900 p-3 font-mono text-xs">
                       <div className="space-y-1">
-                        <div className="text-purple-400">
-                          <span className="text-blue-400">import</span> <span className="text-white">React</span> <span className="text-blue-400">from</span> <span className="text-green-400">'react'</span>
+                        <div className="text-blue-300">
+                          <span className="text-blue-400">import</span> <span className="text-white">React</span> <span className="text-blue-400">from</span> <span className="text-green-400">&apos;react&apos;</span>
                         </div>
-                        <div className="text-purple-400">
-                          <span className="text-blue-400">import</span> <span className="text-white">{'{ NextPage }'}</span> <span className="text-blue-400">from</span> <span className="text-green-400">'next'</span>
+                        <div className="text-blue-300">
+                          <span className="text-blue-400">import</span> <span className="text-white">{'{ NextPage }'}</span> <span className="text-blue-400">from</span> <span className="text-green-400">&apos;next&apos;</span>
                         </div>
                         <div className="h-1"></div>
                         <div className="text-gray-500">// Welcome to my portfolio! 👋</div>
@@ -82,7 +82,7 @@ function LaptopModel(props: Laptop3DProps) {
                           <span className="text-blue-400">return</span> <span className="text-white">(</span>
                         </div>
                         <div className="ml-4">
-                          <span className="text-gray-400">&lt;</span><span className="text-red-400">div</span> <span className="text-blue-300">className</span><span className="text-white">=</span><span className="text-green-400">"hero"</span><span className="text-gray-400">&gt;</span>
+                          <span className="text-gray-400">&lt;</span><span className="text-red-400">div</span> <span className="text-blue-300">className</span><span className="text-white">=</span><span className="text-green-400">&quot;hero&quot;</span><span className="text-gray-400">&gt;</span>
                         </div>
                         <div className="ml-6">
                           <span className="text-gray-400">&lt;</span><span className="text-red-400">h1</span><span className="text-gray-400">&gt;</span><span className="text-white">Bilal EL AZZAM</span><span className="text-gray-400">&lt;/</span><span className="text-red-400">h1</span><span className="text-gray-400">&gt;</span>
@@ -124,13 +124,9 @@ function LaptopModel(props: Laptop3DProps) {
 
 export default function ReliableLaptop3D({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Laptop3DProps) {
   return (
-    <Suspense fallback={null}>
-      <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
-        <LaptopModel scale={scale} position={position} rotation={rotation} />
-      </group>
-      <Environment preset="city" />
-      <ContactShadows position={[0, -4.5, 0]} scale={20} blur={2} far={4.5} />
-    </Suspense>
+    <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
+      <LaptopModel scale={scale} position={position} rotation={rotation} />
+    </group>
   )
 }
 
