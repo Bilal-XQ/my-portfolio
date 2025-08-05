@@ -5,19 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Eye, ChevronDown, Code, ArrowRight, Github, Linkedin, Mail, Download, ExternalLink } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
-import dynamic from "next/dynamic"
-
-// Dynamically import the 3D component for client-side rendering
-const Laptop3DScene = dynamic(() => import("@/components/3d/Laptop3DScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
-        <Code className="h-16 w-16 text-white" />
-      </div>
-    </div>
-  )
-})
+import BrandedWorkspace from "@/components/branded-workspace"
 
 const roles = ["Full-Stack Developer", "AI Explorer", "Cybersecurity Enthusiast", "Computer Science Student", "Graphic Designer"]
 
@@ -269,7 +257,7 @@ export default function ModernAbout() {  const { ref, inView } = useInView({
             </motion.div>
           </motion.div>
 
-          {/* 3D Laptop Hero Space - Takes up 7 columns (58%) on large screens */}
+          {/* Branded Workspace Hero Space - Takes up 7 columns (58%) on large screens */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
             animate={inView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
@@ -280,9 +268,9 @@ export default function ModernAbout() {  const { ref, inView } = useInView({
               transformStyle: 'preserve-3d'
             }}
           >
-            {/* 3D Laptop Container with proper spacing */}
+            {/* Branded Workspace Container */}
             <div className="w-full h-full max-w-none overflow-visible will-change-transform">
-              <Laptop3DScene inView={inView} className="w-full h-full overflow-visible" />
+              <BrandedWorkspace inView={inView} className="w-full h-full overflow-visible" />
             </div>
           </motion.div>
         </div>

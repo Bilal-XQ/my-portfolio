@@ -1,10 +1,10 @@
 "use client"
 
 import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Environment, ContactShadows, Html } from "@react-three/drei"
+import { OrbitControls, Environment, ContactShadows } from "@react-three/drei"
 import { Suspense, useState } from "react"
 import { motion } from "framer-motion"
-import ReliableLaptop3D from "./ReliableLaptop3D"
+import Terminal3D from "./Terminal3D"
 
 interface Laptop3DSceneProps {
   inView?: boolean
@@ -46,7 +46,7 @@ export default function Laptop3DScene({ inView = true, className = "" }: Laptop3
         className="w-full h-full overflow-visible"
       >
         <Canvas 
-          camera={{ position: [-5, 0, -15], fov: 55 }}
+          camera={{ position: [6, 4, 8], fov: 45 }}
           className="w-full h-full overflow-visible"
           style={{ 
             background: "transparent",
@@ -62,24 +62,38 @@ export default function Laptop3DScene({ inView = true, className = "" }: Laptop3
             setTimeout(() => setIsLoading(false), 500)
           }}
         >
-          <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} intensity={1.5} />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={1.2} />
+          <pointLight position={[-10, -10, -10]} intensity={0.3} />
+          <directionalLight 
+            position={[5, 5, 5]} 
+            intensity={0.8}
+            castShadow
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+          />
           
           <Suspense fallback={null}>
-            <ReliableLaptop3D />
-            <Environment preset="city" />
-            <ContactShadows position={[0, -4.5, 0]} scale={20} blur={2} far={4.5} />
+            <Terminal3D scale={0.8} position={[0, 0, 0]} />
+            <Environment preset="studio" />
+            <ContactShadows 
+              position={[0, -2, 0]} 
+              scale={15} 
+              blur={2} 
+              far={3} 
+              opacity={0.3}
+            />
           </Suspense>
           
           <OrbitControls 
             enablePan={false} 
             enableZoom={false} 
-            minPolarAngle={Math.PI / 2.2} 
-            maxPolarAngle={Math.PI / 2.2}
+            minPolarAngle={Math.PI / 3} 
+            maxPolarAngle={Math.PI / 2}
             autoRotate={false}
             enableDamping={true}
-            dampingFactor={0.1}
+            dampingFactor={0.05}
+            rotateSpeed={0.5}
           />
         </Canvas>
       </motion.div>

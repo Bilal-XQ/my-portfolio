@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Test</title>
+</head>
+<body>
+    <script>
+        // Test navigation by opening the portfolio in a new tab and testing nav clicks
+        window.open('http://localhost:3000', '_blank');
+        
+        setTimeout(() => {
+            console.log('Testing navigation...');
+            // The user should manually test navigation by clicking nav items
+            console.log('Please manually test the navigation by clicking on:');
+            console.log('1. About (should scroll to top)');
+            console.log('2. Work (should scroll to projects section)');
+            console.log('3. Skills (should scroll to skills section)');
+            console.log('4. Contact (should scroll to contact section)');
+            console.log('Check that each navigation item properly scrolls to its respective section.');
+        }, 2000);
+    </script>
+</body>
+</html>

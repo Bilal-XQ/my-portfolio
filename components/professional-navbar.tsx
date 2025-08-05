@@ -47,26 +47,44 @@ export default function ProfessionalNavbar() {
       // Don't update active section during manual navigation
       if (isManualNavigation) return
 
-      // Find the current section based on scroll position
+      // Find the current section based on scroll position with better logic
       const sections = navigationItems.map(item => ({
         id: item.href.slice(1),
         element: document.getElementById(item.href.slice(1))
       })).filter(section => section.element)
 
-      if (sections.length === 0) {
-        console.warn("No sections found with IDs:", navigationItems.map(item => item.href.slice(1)))
+      // Debug: Log found sections only once
+      if (sections.length > 0 && window.location.hash === '') {
+        console.log('Found sections:', sections.map(s => s.id))
+      }
+
+      if (sections.length === 0) return
+
+      // Special case: if we're at the very top, set 'about' as active
+      if (scrollPosition < 100) {
+        if (activeSection !== 'about') {
+          setActiveSection('about')
+        }
         return
       }
 
-      let currentSection = sections[0]?.id || "about"
+      // Find the section that's most visible in the viewport
+      let currentSection = activeSection
+      let maxVisibleHeight = 0
 
       for (const section of sections) {
         const rect = section.element!.getBoundingClientRect()
-        const isVisible = rect.top <= 100 && rect.bottom >= 100
+        const viewportHeight = window.innerHeight
         
-        if (isVisible) {
+        // Calculate how much of the section is visible
+        const visibleTop = Math.max(0, rect.top)
+        const visibleBottom = Math.min(viewportHeight, rect.bottom)
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop)
+        
+        // Check if this section has more visible content than the current max
+        if (visibleHeight > maxVisibleHeight && rect.top < viewportHeight * 0.5) {
+          maxVisibleHeight = visibleHeight
           currentSection = section.id
-          break
         }
       }
 
@@ -91,73 +109,56 @@ export default function ProfessionalNavbar() {
     }
   }, [isManualNavigation])
 
-  const handleNavClick = (href: string, e: React.MouseEvent) => {
+  const handleNavClick = (href: string, e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault()
+    e.stopPropagation()
+    
+    // Close mobile menu immediately
     setIsMobileMenuOpen(false)
     setIsManualNavigation(true)
     
     const targetId = href.slice(1) // Remove the # from href
-    console.log('Navigating to section:', targetId) // Debug log
+    console.log('Navigating to section:', targetId)
+    
+    // Handle the about section specially as it's the hero
+    if (targetId === 'about') {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      setActiveSection('about')
+      return
+    }
     
     const targetElement = document.getElementById(targetId)
-    console.log('Target element found:', targetElement) // Debug log
+    console.log('Target element found:', targetElement)
     
     if (targetElement) {
       setActiveSection(targetId)
       
-      // Calculate proper scroll position
-      const navbarHeight = 80
-      const elementPosition = targetElement.offsetTop
-      const offsetPosition = Math.max(0, elementPosition - navbarHeight - 20)
-      
-      console.log('Scrolling to position:', offsetPosition) // Debug log
-      
-      // Force scrolling with multiple approaches
-      try {
-        // Method 1: Standard window.scrollTo
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        })
-        
-        // Method 2: Fallback with requestAnimationFrame
+      // For mobile, use a more reliable scrolling method
+      const isMobile = window.innerWidth < 768
+      if (isMobile) {
+        // Add a small delay to ensure mobile menu has closed
         setTimeout(() => {
+          const offset = 80 // Account for navbar height
+          const elementPosition = targetElement.offsetTop - offset
           window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
+            top: elementPosition,
+            behavior: 'smooth'
           })
-        }, 50)
-        
-        // Method 3: Element scrollIntoView as backup
-        setTimeout(() => {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          })
-          // Adjust for navbar after scrollIntoView
-          setTimeout(() => {
-            window.scrollBy(0, -(navbarHeight + 20))
-          }, 300)
         }, 100)
-        
-      } catch (error) {
-        console.error('Scrolling error:', error)
-        // Ultimate fallback
-        document.documentElement.scrollTop = offsetPosition
+      } else {
+        // Use the browser's native scroll with CSS scroll-margin-top for desktop
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
       }
       
     } else {
       console.warn(`Element with id "${targetId}" not found`)
       
-      // Check if sections exist at all
+      // Debug: Check available sections
       const allSections = document.querySelectorAll('section[id]')
       console.log('Available sections:', Array.from(allSections).map(s => s.id))
-      
-      // Fallback scrolling
-      if (targetId === 'about') {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-        setActiveSection('about')
-      }
     }
   }
 
@@ -290,21 +291,26 @@ export default function ProfessionalNavbar() {
                   const isActive = activeSection === item.href.slice(1)
                   
                   return (
-                    <motion.a
+                    <motion.button
                       key={item.name}
-                      href={item.href}
                       onClick={(e) => {
                         console.log(`Mobile nav: Navigating to ${item.href}`)
+                        handleNavClick(item.href, e)
+                      }}
+                      onTouchEnd={(e) => {
+                        // Handle touch events for better mobile responsiveness
+                        e.preventDefault()
+                        console.log(`Mobile touch: Navigating to ${item.href}`)
                         handleNavClick(item.href, e)
                       }}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1, duration: 0.2 }}
                       className={cn(
-                        "flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer",
+                        "flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer w-full text-left",
                         isActive
                           ? "text-white bg-blue-600/20 shadow-lg shadow-blue-500/20"
-                          : "text-gray-300 hover:text-white hover:bg-gray-800/50"
+                          : "text-gray-300 hover:text-white hover:bg-gray-800/50 active:bg-gray-700/50"
                       )}
                     >
                       <Icon className={cn(
@@ -315,7 +321,7 @@ export default function ProfessionalNavbar() {
                         <div className="font-medium">{item.name}</div>
                         <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
                       </div>
-                    </motion.a>
+                    </motion.button>
                   )
                 })}
               </div>

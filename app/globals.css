@@ -167,7 +167,8 @@
 
   section {
     @apply py-16 sm:py-20;
-    scroll-margin-top: 80px; /* Ensure sections are properly scrolled to accounting for fixed header */
+    scroll-margin-top: 100px; /* Increased margin for better positioning */
+    scroll-padding-top: 100px; /* Additional padding for better scroll behavior */
   }
 
   a {
