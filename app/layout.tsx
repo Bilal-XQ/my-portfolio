@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { LightboxProvider } from "@/components/lightbox"
 import ResponsiveFixes from "@/components/responsive-fixes"
 import StructuredData from "@/components/structured-data"
+import GoogleAnalytics from "@/components/google-analytics"
 
 export const metadata: Metadata = {
   title: "Bilal EL AZZAM - Full-Stack Developer | Développeur Web | مطور ويب",
@@ -62,6 +63,7 @@ export default function RootLayout({
         <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
       <body className="font-sans">
+        <GoogleAnalytics />
         <ResponsiveFixes />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <LightboxProvider>{children}</LightboxProvider>
