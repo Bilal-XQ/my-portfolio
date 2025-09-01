@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://your-domain.com/sitemap.xml', // Replace with your actual domain
+    sitemap: 'https://elazzam.me/sitemap.xml', // Replace with your actual domain
   }
 }
